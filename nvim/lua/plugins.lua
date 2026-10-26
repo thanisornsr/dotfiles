@@ -164,6 +164,29 @@ require("lazy").setup({
             })
         end,
     },
+    {
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            require("gitsigns").setup({
+                on_attach = function(bufnr)
+                    local gs = require("gitsigns")
+                    local function map(mode, l, r, desc)
+                        vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+                    end
+
+                    -- เลื่อนไปมาระหว่าง hunk
+                    map("n", "]h", function() gs.nav_hunk("next") end, "Next hunk")
+                    map("n", "[h", function() gs.nav_hunk("prev") end, "Prev hunk")
+
+                    -- ดู/จัดการ hunk
+                    map("n", "<Leader>hp", gs.preview_hunk, "Preview hunk")
+                    map("n", "<Leader>hs", gs.stage_hunk, "Stage hunk")
+                    map("n", "<Leader>hr", gs.reset_hunk, "Reset hunk")
+                    map("n", "<Leader>hb", function() gs.blame_line({ full = true }) end, "Blame line")
+                end,
+            })
+        end,
+    },
 })
 
 vim.keymap.set("n", "<Leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic error messages" })
