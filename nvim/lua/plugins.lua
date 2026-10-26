@@ -196,7 +196,19 @@ require("lazy").setup({
                 filters = { dotfiles = false },
             })
             vim.keymap.set("n", "<Leader>t", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle file tree" })
-            vim.keymap.set("n", "<Leader>f", "<cmd>NvimTreeFindFile<cr>", { desc = "Find current file in tree" })
+            vim.keymap.set("n", "<Leader>T", "<cmd>NvimTreeFindFile<cr>", { desc = "Find current file in tree" })
+        end,
+    },
+    {
+        "nvim-telescope/telescope.nvim",
+        branch = "master",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            local builtin = require("telescope.builtin")
+            vim.keymap.set("n", "<Leader>ff", builtin.find_files, { desc = "Find files" })
+            vim.keymap.set("n", "<Leader>fg", builtin.live_grep, { desc = "Grep in project" })
+            vim.keymap.set("n", "<Leader>fb", builtin.buffers, { desc = "Find buffers" })
+            vim.keymap.set("n", "<Leader>fr", builtin.oldfiles, { desc = "Recent files" })
         end,
     },
 })
