@@ -187,6 +187,18 @@ require("lazy").setup({
             })
         end,
     },
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+            require("nvim-tree").setup({
+                view = { width = 30 },
+                filters = { dotfiles = false },
+            })
+            vim.keymap.set("n", "<Leader>t", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle file tree" })
+            vim.keymap.set("n", "<Leader>f", "<cmd>NvimTreeFindFile<cr>", { desc = "Find current file in tree" })
+        end,
+    },
 })
 
 vim.keymap.set("n", "<Leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic error messages" })
