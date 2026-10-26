@@ -1,0 +1,21 @@
+{
+    "explorer.confirmDragAndDrop": false,
+    "window.zoomLevel": 1,
+    "explorer.confirmDelete": false,
+    "workbench.colorTheme": "Monokai Pro",
+    "workbench.iconTheme": "Monokai Pro Icons",
+    "files.autoSave": "onFocusChange",
+    "python.createEnvironment.trigger": "off",
+    "python.analysis.inlayHints.functionReturnTypes": true,
+    "go.inlayHints.parameterNames": true,
+    "javascript.inlayHints.variableTypes.enabled": true,
+    "typescript.inlayHints.variableTypes.enabled": true,
+    "python.analysis.inlayHints.callArgumentNames": "partial",
+    "C_Cpp.inlayHints.parameterNames.enabled": true,
+    "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores": false,
+    "go.inlayHints.assignVariableTypes": true,
+    "go.inlayHints.rangeVariableTypes": true,
+    "python.analysis.inlayHints.variableTypes": true,
+    "C_Cpp.inlayHints.autoDeclarationTypes.enabled": true,
+    "editor.inlayHints.enabled": "offUnlessPressed"
+}

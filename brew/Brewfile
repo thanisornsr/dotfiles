@@ -1,0 +1,95 @@
+tap "anomalyco/tap"
+tap "arthur-ficial/tap", "https://github.com/Arthur-Ficial/homebrew-tap"
+tap "felixkratz/formulae", "https://github.com/FelixKratz/homebrew-formulae"
+tap "homebrew-ffmpeg/ffmpeg"
+tap "nikitabobko/tap"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
+# AI pair programming in your terminal
+brew "aider"
+# Powerful, enterprise-ready, open source web server with automatic HTTPS
+brew "caddy"
+# GNU File, Shell, and Text utilities
+brew "coreutils"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# GNU debugger
+brew "gdb"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
+# Interact with Google Gemini AI models from the command-line
+brew "gemini-cli"
+# Database migrations CLI tool
+brew "golang-migrate"
+# Modern load testing tool, using Go and JavaScript
+brew "k6"
+# Subtitle renderer for the ASS/SSA subtitle format
+brew "libass"
+# Next-gen compiler infrastructure
+brew "llvm"
+# Powerful paging program
+brew "most"
+# Open source relational database management system
+brew "mysql", restart_service: :changed
+# Fast, highly customisable system info script
+brew "neofetch"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Development kit for the Java programming language
+brew "openjdk@17"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# Object-relational database system
+brew "postgresql@16", restart_service: :changed, link: true
+# Rsync for cloud storage
+brew "rclone"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Terminal multiplexer
+brew "tmux"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Parser generator tool
+brew "tree-sitter-cli"
+# Internet file retriever
+brew "wget"
+# Suite of barcodes-reading tools
+brew "zbar"
+# Fish shell like syntax highlighting for zsh
+brew "zsh-syntax-highlighting"
+# A window border system for macOS
+brew "felixkratz/formulae/borders", trusted: true
+# Custom macOS statusbar with shell plugin, interaction and graph support
+brew "felixkratz/formulae/sketchybar", trusted: true
+# Play, record, convert, and stream audio and video
+brew "homebrew-ffmpeg/ffmpeg/ffmpeg", trusted: true
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "nikitabobko/tap/aerospace", trusted: true
+# Terminal interface for Antigravity agents
+cask "antigravity-cli"
+# Terminal-based AI coding assistant
+cask "claude-code@latest"
+# App to build and share containerised applications and microservices
+cask "docker-desktop"
+cask "font-hack-nerd-font"
+cask "font-meslo-lg-nerd-font"
+# Set of tools to manage resources and applications hosted on Google Cloud
+cask "gcloud-cli"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
+# Full TeX Live distribution without GUI applications
+cask "mactex-no-gui"
+# Reverse proxy, secure introspectable tunnels to localhost
+cask "ngrok"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
+# Get up and running with large language models locally
+cask "ollama-app"
+# Tool that provides consistent, highly configurable symbols for apps
+cask "sf-symbols"
+go "golang.org/dl/go1.25.0"
+go "golang.org/x/tools/gopls"
+go "honnef.co/go/tools/cmd/staticcheck"
+npm "pyright"

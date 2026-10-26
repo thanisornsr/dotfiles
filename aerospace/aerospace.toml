@@ -1,0 +1,161 @@
+# AeroSpace config
+# Cheat sheet: ~/aerospace-lazydog.md
+# Docs: https://nikitabobko.github.io/AeroSpace/guide
+
+# ---------------------------------------------------------------- General ---
+
+start-at-login = true
+
+# Keep the tree tidy: flatten needless nesting and alternate the orientation
+# of nested containers (horizontal inside vertical and vice versa).
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# 0 = accordion windows are not peeked at the edges.
+accordion-padding = 0
+
+# New workspaces start as tiles; 'auto' means side by side on a wide monitor.
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+# Move the mouse to the middle of the monitor that just got focus.
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# Ignore macOS "Hide application" (cmd-h): hidden apps come straight back.
+automatically-unhide-macos-hidden-apps = true
+
+# Tell sketchybar about the focused workspace and refresh the app icons.
+exec-on-workspace-change = ['/bin/bash', '-c', 'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE && ~/.config/sketchybar/plugins/update_workspace_icons.sh']
+
+# Keys are matched by physical position of a US keyboard, so on a Nordic
+# layout 'minus' is the "+" key and 'slash' is the "-" key.
+[key-mapping]
+preset = 'qwerty'
+
+# ------------------------------------------------------------------- Gaps ---
+
+# The top gap leaves room for sketchybar (40 on the main monitor, 10 elsewhere).
+[gaps]
+inner.horizontal = 8
+inner.vertical = 8
+outer.bottom = 5
+outer.top = [{ monitor.main = 40 }, 10]
+outer.right = 5
+outer.left = 5
+
+# ------------------------------------------------------------ Workspaces ---
+
+# 1-5 live on the main monitor, 6-7 on the secondary one. With a single
+# monitor, everything falls back to it.
+[workspace-to-monitor-force-assignment]
+1 = 'main'
+2 = 'main'
+3 = 'main'
+4 = 'main'
+5 = 'main'
+6 = 'secondary'
+7 = 'secondary'
+
+# --------------------------------------------------------------- Main mode ---
+
+# Every 'mode.sh <letter>' call below updates the mode indicator in sketchybar
+# (M main, S service, W ws, V move). Any binding that changes the mode must
+# call it too, or the bar keeps showing the old letter.
+[mode.main.binding]
+
+# Focus (alt-n / alt-p wrap around the workspace, handy in an accordion)
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+alt-n = 'focus --boundaries workspace --boundaries-action wrap-around-the-workspace right'
+alt-p = 'focus --boundaries workspace --boundaries-action wrap-around-the-workspace left'
+
+# Move the focused window
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# Fullscreen the focused window (press again to undo)
+alt-z = 'fullscreen'
+
+# Go to workspace N
+ctrl-alt-1 = 'workspace 1'
+ctrl-alt-2 = 'workspace 2'
+ctrl-alt-3 = 'workspace 3'
+ctrl-alt-4 = 'workspace 4'
+ctrl-alt-5 = 'workspace 5'
+ctrl-alt-6 = 'workspace 6'
+ctrl-alt-7 = 'workspace 7'
+
+# Send the focused window to workspace N (stay on the current workspace)
+ctrl-alt-shift-1 = 'move-node-to-workspace 1'
+ctrl-alt-shift-2 = 'move-node-to-workspace 2'
+ctrl-alt-shift-3 = 'move-node-to-workspace 3'
+ctrl-alt-shift-4 = 'move-node-to-workspace 4'
+ctrl-alt-shift-5 = 'move-node-to-workspace 5'
+ctrl-alt-shift-6 = 'move-node-to-workspace 6'
+ctrl-alt-shift-7 = 'move-node-to-workspace 7'
+
+# Jump back to the previous workspace (press again to return)
+alt-tab = 'workspace-back-and-forth'
+
+# Reload sketchybar (reload AeroSpace itself from a terminal)
+alt-shift-r = 'exec-and-forget /opt/homebrew/bin/sketchybar --reload'
+
+# Enter a mode: alt-w = workspace (tmux style), alt-m = move window, alt-s = service (layout)
+alt-w = ['mode ws', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh W']
+alt-m = ['mode move', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh V']
+alt-s = ['mode service', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh S']
+
+# ------------------------------------------------------------ Service mode ---
+
+# Layout tweaks. Nothing here leaves the mode by itself, so keys can be
+# repeated (e.g. resize several times); leave with esc.
+[mode.service.binding]
+esc = ['mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+
+# Join the focused window with its neighbour into a group
+h = 'join-with left'
+j = 'join-with down'
+k = 'join-with up'
+l = 'join-with right'
+
+# Resize the focused window ("+" grows, "-" shrinks on a Nordic keyboard)
+minus = 'resize smart +50'
+slash = 'resize smart -50'
+
+# Reset: ungroup everything, lay out side by side with equal sizes
+r = ['flatten-workspace-tree', 'layout tiles horizontal', 'balance-sizes']
+
+# Toggle the focused window between floating and tiling
+f = 'layout floating tiling'
+
+# Toggle the focused container between horizontal and vertical
+e = 'layout tiles horizontal vertical'
+
+# ----------------------------------------------------------- Workspace mode ---
+
+# tmux style: alt-w, then a number to go to that workspace, then back to main.
+[mode.ws.binding]
+esc = ['mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+1 = ['workspace 1', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+2 = ['workspace 2', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+3 = ['workspace 3', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+4 = ['workspace 4', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+5 = ['workspace 5', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+6 = ['workspace 6', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+7 = ['workspace 7', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+
+# alt-m, then a number to send the focused window to that workspace (you stay
+# where you are), then back to main.
+[mode.move.binding]
+esc = ['mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+1 = ['move-node-to-workspace 1', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+2 = ['move-node-to-workspace 2', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+3 = ['move-node-to-workspace 3', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+4 = ['move-node-to-workspace 4', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+5 = ['move-node-to-workspace 5', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+6 = ['move-node-to-workspace 6', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
+7 = ['move-node-to-workspace 7', 'mode main', 'exec-and-forget ~/.config/sketchybar/plugins/mode.sh M']
