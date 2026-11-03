@@ -116,7 +116,12 @@ sketchybar --add item clock right \
   --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
   --subscribe battery system_woke power_source_change \
   --add item mode right \
-  --set mode icon.drawing=off label="M" label.color=0x80ffffff
+  --set mode icon.drawing=off label="M" label.color=0x80ffffff \
+  --add item claude right \
+  --set claude icon="󰚩" icon.color=0x80ffffff label="--" label.color=0x80ffffff \
+    update_freq=300 script="$PLUGIN_DIR/claude.sh" \
+    click_script="NAME=claude CLAUDE_USAGE_CLICK=1 $PLUGIN_DIR/claude.sh" \
+  --subscribe claude system_woke
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
