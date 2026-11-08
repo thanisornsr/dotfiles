@@ -52,6 +52,7 @@ fetch() {
   unset token
   status="${body##*$'\n'}"
   body="${body%$'\n'*}"
+  FETCH_STATUS="$status"
   [ "$status" = "200" ] || return 1
 
   local parsed
@@ -85,8 +86,16 @@ render() {
   reset_epoch="$(to_epoch "$resets")"
 
   if [ -z "$reset_epoch" ] || [ "$reset_epoch" -le "$now" ]; then
-    # Window already reset since we last saw it.
-    sketchybar --set "$NAME" label="100%" label.color="$GRAY" icon.color="$GRAY"
+    # The cached window has ended. Without a fresh fetch we don't know the
+    # current usage, so don't pretend it's 100%.
+    if [ "$fresh" = "1" ]; then
+      sketchybar --set "$NAME" label="100%" label.color="$GREEN" icon.color="$GREEN"
+    elif [ "$FETCH_STATUS" = "401" ]; then
+      # Token in the Keychain expired; Claude Code refreshes it on its next start.
+      sketchybar --set "$NAME" label="expired" label.color="$GRAY" icon.color="$GRAY"
+    else
+      sketchybar --set "$NAME" label="--" label.color="$GRAY" icon.color="$GRAY"
+    fi
     return
   fi
 
@@ -108,7 +117,9 @@ render() {
     color="$RED"
   fi
 
-  sketchybar --set "$NAME" label="${left}% · ${time_str}" label.color="$color" icon.color="$color"
+  local label="${left}% · ${time_str}"
+  [ "$fresh" != "1" ] && [ "$FETCH_STATUS" = "401" ] && label="${label} · expired"
+  sketchybar --set "$NAME" label="$label" label.color="$color" icon.color="$color"
 }
 
 # Click to refresh: ignore clicks within 30s of the last successful fetch,
